@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends ApiModel
 {
+	protected $guarded = [];
+	
     public function comments()
     {
     	return $this->hasMany(Comment::class);

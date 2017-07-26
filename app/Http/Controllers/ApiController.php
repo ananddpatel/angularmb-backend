@@ -8,14 +8,12 @@ class ApiController extends Controller
 {
 	/**
 	 * validates if model already exists
-	 * @param  Model $model the model to validate
+	 * @param  array $rules the validation rules
 	 * @return Validator
 	 */
-    protected function validateStore($model)
+    protected function validateStore($rules)
     {
-        return Validator::make(request()->all(), [
-            'name' => 'required|exists:' . $model->getTable() . ',' . $model->getPrimaryKey()
-        ]); 
+        return Validator::make(request()->all(), $rules); 
     }
 
     /**

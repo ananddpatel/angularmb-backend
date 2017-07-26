@@ -2,13 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 class Board extends ApiModel
 {
 	protected $primaryKey = 'name';
     protected $guarded = [];
     public $incrementing = false;
+    protected $hidden = ['created_at', 'updated_at'];
 	
     public function posts()
     {

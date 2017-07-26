@@ -16,12 +16,16 @@ class BoardController extends ApiController
      */
     public function store()
     {
+        $board = new Board();
+        $validator = $this->validateStore([
+            'name' => 'required|exists:' . $board->getTable() . ',' . $board->getPrimaryKey()
+        ]);
         // true if already exists
-        if (!$this->validateStore(new Board())->fails()) {
+        if (!$validator->fails()) {
             return $this->respondBadRequest();
         }
-
-        Board::create(['name' => request('name')]);
+        $board->name = request('name');
+        $board->save();
         return $this->respondCreated();
     }
 
@@ -35,7 +39,10 @@ class BoardController extends ApiController
     {
         $board = Board::find($board);
         if ($board) {
-            return $this->respondOkWithData(['board' => $board, 'posts' => []]);
+            return $this->respondOkWithData([
+                'board' => $board,
+                'posts' => $board->posts()->get()
+            ]);
         } 
         return $this->respondNotFound();
     }
