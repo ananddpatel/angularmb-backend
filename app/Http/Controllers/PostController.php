@@ -20,7 +20,6 @@ class PostController extends ApiController
             'title' => 'required',
             'body' => 'required'
         ]);
-        // true if already exists
         if ($validator->fails()) {
             return $this->respondBadRequest();
         }
@@ -43,9 +42,12 @@ class PostController extends ApiController
     {
         // dd(request());
         $post = Post::find($post);
-        if ($post) {
-            return $this->respondOkWithData(['post' => $post, 'comments' => []]);
+        if (!$post) {
+            return $this->respondNotFound();
         } 
-        return $this->respondNotFound();
+        return $this->respondOkWithData([
+            'post' => $post,
+            'comments' => $post->comments()->get()
+        ]);
     }
 }

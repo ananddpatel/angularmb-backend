@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends ApiModel
 {
 	protected $guarded = [];
+	protected $hidden = ['updated_at'];
 
     public function user()
     {

@@ -25,4 +25,4 @@ Route::post('/create', 'BoardController@store'); // create a board
 Route::get('/b/{board}/{post}', 'PostController@show'); // shows a specific post on a board with all the comments
 Route::post('/b/{board}/create', 'PostController@store'); // store a post on a board
 
-Route::post('/b/{board}/{post}/comment', 'CommentController@store'); // make a comment on a post
+Route::post('/{post}/comment', 'CommentController@store'); // make a comment on a post
