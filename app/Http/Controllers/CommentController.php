@@ -22,7 +22,8 @@ class CommentController extends ApiController
 
         Comment::create([
             'body' => request('body'),
-            'post_id' => $post
+            'post_id' => $post,
+            'user_id' => 1
         ]);
         return $this->respondCreated();
     }

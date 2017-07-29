@@ -19,6 +19,7 @@ class Cors
         $route = $request->server()['REQUEST_URI'];
         if (!in_array($route, $corsRoutes['prevent'])) {
             header('Access-Control-Allow-Origin: *');
+            header('Access-Control-Allow-Headers: Content-Type, Authorization');
         }
         return $next($request);
     }

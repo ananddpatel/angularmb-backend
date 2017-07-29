@@ -17,14 +17,16 @@ class BoardController extends ApiController
     public function store()
     {
         $board = new Board();
-        $validator = $this->validateStore([
-            'name' => 'required|exists:' . $board->getTable() . ',' . $board->getPrimaryKey()
+        $exists = $this->validateStore([
+            'name' => 'exists:' . $board->getTable() . ',' . $board->getPrimaryKey()
         ]);
+        $given = $this->validateStore(['name' => 'required']);
         // true if already exists
-        if (!$validator->fails()) {
+        if (!$exists->fails() || $given->fails()) {
             return $this->respondBadRequest();
         }
         $board->name = request('name');
+        $board->user_id = 1;
         $board->save();
         return $this->respondCreated();
     }

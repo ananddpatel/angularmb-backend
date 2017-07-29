@@ -41,6 +41,11 @@ class ApiController extends Controller
         return $this->respond(['status' => $msg], 404);
     }
 
+    public function respondServerError($msg = 'Internal Server Error')
+    {
+        return $this->respond(['status' => $msg], 500);
+    }
+
     public function respondOk($data, $msg = 'Ok')
     {
         return $this->respond(['status' => $msg], 200);

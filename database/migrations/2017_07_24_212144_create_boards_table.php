@@ -15,7 +15,7 @@ class CreateBoardsTable extends Migration
     {
         Schema::create('boards', function (Blueprint $table) {
             // $table->increments('id');
-            // $table->integer('user_id'); // board belongs to user
+            $table->integer('user_id'); // board belongs to user
             $table->string('name')->primary()->unique();
             $table->timestamps();
         });

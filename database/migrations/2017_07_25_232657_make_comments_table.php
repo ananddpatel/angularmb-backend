@@ -16,7 +16,7 @@ class MakeCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('post_id'); // comment belongs to a post
-            // $table->integer('user_id'); // comment belongs to a user
+            $table->integer('user_id'); // comment belongs to a user
             $table->text('body');
             $table->timestamps();
         });

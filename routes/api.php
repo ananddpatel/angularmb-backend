@@ -16,7 +16,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 */
 
-Auth::routes();
+Route::post('/register', 'UserController@register'); // register a new user
+Route::post('/login', 'UserController@login'); // login route
 
 Route::get('/b/{board}', 'BoardController@show'); // goes to a specific board and shows all posts
 Route::post('/create', 'BoardController@store'); // create a board
