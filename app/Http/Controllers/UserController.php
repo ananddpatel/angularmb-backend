@@ -14,14 +14,14 @@ class UserController extends ApiController
 	public function register(Request $request)
 	{
 		$this->validate($request, [
-			'name' => 'required',
-			'email' => 'required|email|unique:users',
+			'name' => 'required|unique:users',
+			// 'email' => 'required|email|unique:users',
 			'password' => 'required',
 		]);
 		
 		User::create([
 			'name' => request('name'),
-			'email' => request('email'),
+			// 'email' => request('email'),
 			'password' => bcrypt(request('password'))
 		]);
 
@@ -32,11 +32,11 @@ class UserController extends ApiController
 	{
 		// validate login
 		$this->validate($request, [
-			// 'name' => 'required',
-			'email' => 'required|email',
+			'name' => 'required',
+			// 'email' => 'required|email',
 			'password' => 'required',
 		]);
-		$credentials = $request->only(['email', 'password']);
+		$credentials = $request->only(['name', 'password']);
 
 		// try to create token
 		try {
