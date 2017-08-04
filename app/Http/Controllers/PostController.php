@@ -17,12 +17,6 @@ class PostController extends ApiController
      */
     public function store($board)
     {
-        // fails if no token or if incorrect token
-        // extracts the $user -> ie. user is autheticated
-        if (! $user = JWTAuth::parseToken()->authenticate()) {
-            return $this->respondNotFound('User not found');
-        }
-
         $validator = $this->validateStore([
             'title' => 'required',
             'body' => 'required'
@@ -35,7 +29,7 @@ class PostController extends ApiController
             'title' => request('title'),
             'body' => request('body'),
             'board_name' => $board,
-            'user_id' => 1
+            'user_id' => $this->getAuthenticatedUser()->id;
         ]);
         return $this->respondCreated();
     }

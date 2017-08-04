@@ -16,14 +16,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 */
 
-Route::post('/register', 'UserController@register'); // register a new user
+Route::post('/register', 'UserController@register'); // register a new USER
 Route::post('/login', 'UserController@login'); // login route
 
-Route::get('/b/{board}', 'BoardController@show'); // goes to a specific board and shows all posts
-Route::post('/create', 'BoardController@store'); // create a board
-// Route::get('/{board}/create', 'BoardController@create'); // make a post on a board
+Route::get('/b/{board}', 'BoardController@show'); // goes to a specific BOARD and shows all POSTS
+Route::get('/b/{board}/{post}', 'PostController@show'); // shows a specific POST on a board with all the COMMENTS
 
-Route::get('/b/{board}/{post}', 'PostController@show'); // shows a specific post on a board with all the comments
-Route::post('/b/{board}/create', 'PostController@store'); // store a post on a board
-
-Route::post('/{post}/comment', 'CommentController@store'); // make a comment on a post
+Route::middleware(['auth.jwt'])->group(function () {
+	Route::post('/create', 'BoardController@store'); // store a BOARD
+	Route::post('/b/{board}/create', 'PostController@store'); // store a POST on a BOARD
+	Route::post('/{post}/comment', 'CommentController@store'); // store a COMMENT on a POST
+});

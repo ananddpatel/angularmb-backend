@@ -26,7 +26,7 @@ class BoardController extends ApiController
             return $this->respondBadRequest();
         }
         $board->name = request('name');
-        $board->user_id = 1;
+        $board->user_id = $this->getAuthenticatedUser()->id;
         $board->save();
         return $this->respondCreated();
     }

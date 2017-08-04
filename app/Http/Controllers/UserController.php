@@ -9,6 +9,8 @@ use JWTAuth;
 
 class UserController extends ApiController
 {
+	protected $hidden = ['created_at', 'updated_at'];
+	
 	public function register(Request $request)
 	{
 		$this->validate($request, [
@@ -16,14 +18,6 @@ class UserController extends ApiController
 			'email' => 'required|email|unique:users',
 			'password' => 'required',
 		]);
-
-		// $validate = $this->validateStore([
-		// 	'name' => 'required',
-		// 	'email' => 'required|email|unique:users',
-		// 	'password' => 'required',
-		// ]);
-
-		// if($validate->fails()) {return $this->respondBadRequest();}
 		
 		User::create([
 			'name' => request('name'),
@@ -38,7 +32,7 @@ class UserController extends ApiController
 	{
 		// validate login
 		$this->validate($request, [
-			'name' => 'required',
+			// 'name' => 'required',
 			'email' => 'required|email',
 			'password' => 'required',
 		]);

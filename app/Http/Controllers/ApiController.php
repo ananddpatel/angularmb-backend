@@ -3,9 +3,20 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use JWTAuth;
 
 class ApiController extends Controller
 {
+    public function getAuthenticatedUser()
+    {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        // the token is valid and we have found the user via the sub claim
+        // return response()->json(compact('user'));
+        return $user;
+    }
+
 	/**
 	 * validates if model already exists
 	 * @param  array $rules the validation rules
