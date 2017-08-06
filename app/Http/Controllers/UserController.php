@@ -16,7 +16,7 @@ class UserController extends ApiController
 		$this->validate($request, [
 			'name' => 'required|unique:users',
 			// 'email' => 'required|email|unique:users',
-			'password' => 'required',
+			'password' => 'required|confirmed',
 		]);
 		
 		User::create([
