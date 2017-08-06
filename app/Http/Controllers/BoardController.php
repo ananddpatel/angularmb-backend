@@ -43,7 +43,7 @@ class BoardController extends ApiController
         if ($board) {
             return $this->respondOkWithData([
                 'board' => $board,
-                'posts' => $board->posts()->get()
+                'posts' => $board->posts()->orderBy('created_at', 'dec')->get()
             ]);
         } 
         return $this->respondNotFound();

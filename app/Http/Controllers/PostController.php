@@ -29,7 +29,7 @@ class PostController extends ApiController
             'title' => request('title'),
             'body' => request('body'),
             'board_name' => $board,
-            'user_id' => $this->getAuthenticatedUser()->id;
+            'user_id' => $this->getAuthenticatedUser()->id
         ]);
         return $this->respondCreated();
     }
