@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
+use Auth;
 
 class UserController extends ApiController
 {
@@ -47,6 +48,6 @@ class UserController extends ApiController
 			return $this->respondServerError('Could not create token.');
 		}
 		// return token if created
-		return $this->respondOkWithData(['token' => $token]);
+		return $this->respondOkWithData(['token' => $token, 'user' => Auth::user()]);
 	}
 }
