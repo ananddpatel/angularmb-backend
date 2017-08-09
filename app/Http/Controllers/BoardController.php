@@ -42,7 +42,10 @@ class BoardController extends ApiController
         $board = Board::find($board);
         if ($board) {
             return $this->respondOkWithData([
-                'board' => $board,
+                'board' => [
+                    'name' => $board->name,
+                    'author' => $board->admin()->first()
+                ],
                 'posts' => $board->posts()->orderBy('created_at', 'dec')->get()
             ]);
         } 

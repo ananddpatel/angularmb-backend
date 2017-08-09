@@ -8,6 +8,7 @@ class Comment extends ApiModel
 {
 	protected $guarded = [];
 	protected $hidden = ['updated_at'];
+    protected $appends = ['author'];
 
     public function user()
     {
@@ -17,5 +18,10 @@ class Comment extends ApiModel
     public function post()
     {
     	return $this->belongsTo(Post::class);
+    }
+
+    public function getAuthorAttribute()
+    {
+        return $this->user()->first();
     }
 }

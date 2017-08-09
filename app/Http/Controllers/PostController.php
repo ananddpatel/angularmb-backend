@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 use Validator;
 use JWTAuth;
@@ -46,10 +47,13 @@ class PostController extends ApiController
         $post = Post::find($post);
         if (!$post) {
             return $this->respondNotFound();
-        } 
+        }
+        $comments = $post->comments()->orderBy('created_at', 'dec')->get();
+        // $comments = Comment::find()
         return $this->respondOkWithData([
             'post' => $post,
-            'comments' => $post->comments()->get()
+            'author' => User::find($post->user_id),
+            'comments' => $comments
         ]);
     }
 }
